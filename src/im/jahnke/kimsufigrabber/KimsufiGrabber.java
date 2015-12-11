@@ -71,7 +71,7 @@ public class KimsufiGrabber {
 				Desktop.getDesktop().browse(new URI("https://www.kimsufi.com/en/order/kimsufi.cgi?hard=" + chosenServer + "&dedicatedQuantity=1"));
 				JOptionPane.showMessageDialog(null, "Alarm");
 			} else {
-				System.out.println("No server available. Refresh in " + sleepingTime + " seconds...");
+				System.out.println("No server available. Refresh in " + sleepingTime/1000 + " seconds...");
 			}
 			
 			Thread.sleep(sleepingTime);
