@@ -65,13 +65,12 @@ public class KimsufiGrabber {
 		
 		sc.close();
 		
+		System.out.println("Scanning for available server...");
+		
 		while(true){
-			System.out.println("Scanning for available server...");
 			if(!getPageContent("https://www.kimsufi.com/en/order/kimsufi.cgi?hard=" + chosenServer + "&dedicatedQuantity=1").contains("invalide")){				
 				Desktop.getDesktop().browse(new URI("https://www.kimsufi.com/en/order/kimsufi.cgi?hard=" + chosenServer + "&dedicatedQuantity=1"));
 				JOptionPane.showMessageDialog(null, "Alarm");
-			} else {
-				System.out.println("No server available. Refresh in " + sleepingTime/1000 + " seconds...");
 			}
 			
 			Thread.sleep(sleepingTime);
