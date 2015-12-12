@@ -29,7 +29,7 @@ public class KimsufiGrabber {
 		System.out.println("5 \t KS-4");
 		System.out.println("6 \t KS-5");
 		System.out.println("7 \t KS-6");		
-		System.out.println("Choose Server: ");
+		System.out.print("Choose Server: ");
 		
 		String chosenServer = "";
 		switch (sc.nextLine()) {
@@ -60,17 +60,18 @@ public class KimsufiGrabber {
 			break;
 		}
 		
-		System.out.println("Sleeping time in seconds: ");
+		System.out.print("Sleeping time in seconds: ");
 		int sleepingTime = sc.nextInt()*1000;
 		
 		sc.close();
 		
-		System.out.println("Scanning for available server...");
-		
 		while(true){
+			System.out.println("Scanning for available server...");
 			if(!getPageContent("https://www.kimsufi.com/en/order/kimsufi.cgi?hard=" + chosenServer + "&dedicatedQuantity=1").contains("invalide")){				
 				Desktop.getDesktop().browse(new URI("https://www.kimsufi.com/en/order/kimsufi.cgi?hard=" + chosenServer + "&dedicatedQuantity=1"));
 				JOptionPane.showMessageDialog(null, "Alarm");
+			} else {
+				System.out.println("No free servers found...");
 			}
 			
 			Thread.sleep(sleepingTime);
