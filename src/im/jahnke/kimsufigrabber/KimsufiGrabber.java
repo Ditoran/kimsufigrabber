@@ -74,11 +74,15 @@ public class KimsufiGrabber {
 			}
 			
 			Thread.sleep(sleepingTime);
+			System.gc();
 		}
 	}
 	
 	private static String getPageContent(String url) throws Exception {
 
+		String inputLine;
+		StringBuffer response = new StringBuffer();
+		
 		URL obj = new URL(url);
 		HttpsURLConnection conn = (HttpsURLConnection) obj.openConnection();
 
@@ -90,14 +94,19 @@ public class KimsufiGrabber {
 		conn.setRequestProperty("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8");
 		conn.setRequestProperty("Accept-Language", "en-US,en;q=0.5");
 		
-		BufferedReader in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-		String inputLine;
-		StringBuffer response = new StringBuffer();
+		try {
+			BufferedReader in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+			
 
-		while ((inputLine = in.readLine()) != null) {
-			response.append(inputLine);
+			while ((inputLine = in.readLine()) != null) {
+				response.append(inputLine);
+			}
+			in.close();
+			conn.disconnect();
+			conn = null;
+		} catch (Exception e) {
+			response.append("invalide");
 		}
-		in.close();
 
 		return response.toString();
 
